@@ -1,7 +1,8 @@
-var request    = require('request');
-var bodyParser = require('body-parser');
-var express    = require("express");
-var app        = express();
+var request       = require('request');
+var bodyParser    = require('body-parser');
+var express       = require("express");
+var app           = express();
+var tokenStorage  = require('./tokenStorage');
 
 app.set('view engine', 'jade');
 app.use(bodyParser());
@@ -84,20 +85,32 @@ function proxyRequest(accessToken, res) {
 }
 
 app.get('/proxy_request', function (req, res) {
-  request({
-    method: "POST",
-    url: KONG_API + "/oauth2/token",
-    headers: { host: API_PUBLIC_DNS },
-    form: {
-      grant_type: "client_credentials",
-      client_id: CLIENT_ID,
-      scope: "email phone address", // TODO set as params
-      client_secret: CLIENT_SECRET
-    }
-  }, function(error, response, body) {
-    var authData = JSON.parse(body);
-    proxyRequest(authData.access_token, res)
-  });
+
+  var token = tokenStorage.getToken();
+
+  if (token.isValid) {
+    console.log("reusing token.")
+    proxyRequest(token.accessToken, res);
+  } else {
+    request({
+      method: "POST",
+      url: KONG_API + "/oauth2/token",
+      headers: { host: API_PUBLIC_DNS },
+      form: {
+        grant_type: "client_credentials",
+        client_id: CLIENT_ID,
+        scope: "email phone address", // TODO set as params
+        client_secret: CLIENT_SECRET
+      }
+    }, function(error, response, body) {
+      var authData = JSON.parse(body);
+      console.log(authData);
+
+      tokenStorage.setToken(authData);
+
+      proxyRequest(authData.access_token, res)
+    });
+  }
 })
 
 /*
