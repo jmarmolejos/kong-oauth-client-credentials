@@ -80,8 +80,8 @@ function proxyRequest(accessToken, res) {
       'x-custom-id': 'fooId' // Just because we can ...
     }
   }, function(error, proxiedResponse, body) {
-    res.send('request proxied, got response: ' + body)
-  })
+    res.send('request proxied, got response: ' + body);
+  });
 }
 
 app.get('/proxy_request', function (req, res) {
@@ -89,7 +89,6 @@ app.get('/proxy_request', function (req, res) {
   var token = tokenStorage.getToken();
 
   if (token.isValid) {
-    console.log("reusing token.")
     proxyRequest(token.accessToken, res);
   } else {
     request({
@@ -104,14 +103,11 @@ app.get('/proxy_request', function (req, res) {
       }
     }, function(error, response, body) {
       var authData = JSON.parse(body);
-      console.log(authData);
-
       tokenStorage.setToken(authData);
-
-      proxyRequest(authData.access_token, res)
+      proxyRequest(authData.access_token, res);
     });
   }
-})
+});
 
 /*
   Index page

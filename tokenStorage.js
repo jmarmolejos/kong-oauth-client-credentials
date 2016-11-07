@@ -27,11 +27,11 @@ var tokenStorage = {
   setToken: function (accessToken) {
     accessToken.createdDate = new Date();
     token = {
-      createdDate: new Date,
+      createdDate: new Date(),
       accessToken: accessToken.access_token,
       expiresIn: accessToken.expires_in
     };
   }
-}
+};
 
 module.exports = tokenStorage;
