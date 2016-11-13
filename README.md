@@ -86,24 +86,24 @@ That outputs the following response, including the `client_id` and `client_secre
 ```json
 {
     "consumer_id": "a0977612-bd8c-4c6f-ccea-24743112847f",
-    "client_id": "318f98be1453427bc2937fceab9811bd",
+    "client_id": "c217bb9feb274bc6843770a630ef426e",
     "id": "7ce2f90c-3ec5-4d93-cd62-3d42eb6f9b64",
     "name": "Hello World App",
     "created_at": 1435783376000,
     "redirect_uri": "http://getkong.org/",
-    "client_secret": "efbc9e1f2bcc4968c988ef5b839dd5a4"
+    "client_secret": "47c12793d54a49bd8237ddfc95587d62"
 }
 ```
 
 # Running the web application
 
-Now that Kong has all the data configured, we can start our application using the `provision_key` that has been returned when we added the plugin (you can edit and run the start.sh included in the repo so you don't have to set these variables all the time):
+Now that Kong has all the data configured, we can start our application using the `client_id` and `client_secret` keys that have been returned when we added the plugin (you can edit and run the start.sh included in the repo so you don't have to set these variables all the time):
 
 ```shell
 # Exporting some environment variables used by the Node.js application
 export KONG_ADMIN="http://127.0.0.1:8001"
 export KONG_API="https://127.0.0.1:8443"
-export API_PUBLIC_DNS="test.com"
+export API_PUBLIC_DNS="requestb.in"
 export CLIENT_ID="c217bb9feb274bc6843770a630ef426e"
 export CLIENT_SECRET="47c12793d54a49bd8237ddfc95587d62"
 export SCOPES="{ \

@@ -48,7 +48,7 @@ var CLIENT_ID = load_env_variable("CLIENT_ID");
 var CLIENT_SECRET = load_env_variable("CLIENT_SECRET");
 
 /*
-  This route gets a an access token from kong
+  This route gets an access token from kong
 
   GetToken:
 
