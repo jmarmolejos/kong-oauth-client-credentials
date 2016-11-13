@@ -2,7 +2,7 @@ var request       = require('request');
 var bodyParser    = require('body-parser');
 var express       = require("express");
 var app           = express();
-var tokenStorage  = require('./tokenStorage');
+var tokenStorage  = require('./lib/token_storage');
 
 app.set('view engine', 'jade');
 app.use(bodyParser());
