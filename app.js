@@ -72,7 +72,7 @@ var CLIENT_SECRET = load_env_variable("CLIENT_SECRET");
 function proxyRequest(accessToken, res) {
   request({
     method: 'GET',
-    url: KONG_API + '/173so3t1', // TODO param right side
+    url: KONG_API + '/qfdtdzqf', // TODO param right side
     headers: {
       host: API_PUBLIC_DNS,
       apikey: "Rm9vYmFy", // TODO param apikey
